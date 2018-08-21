@@ -1,0 +1,46 @@
+{
+  "name": "play1",
+  "version": "1.0.0",
+  "description": "play react with ts!",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node ./scripts/dev.js",
+    "build": "node ./scripts/build.js"
+  },
+  "keywords": [
+    "typescript",
+    "react",
+    "webpack"
+  ],
+  "author": "hachimei",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "devDependencies": {
+    "@types/antd": "^1.0.0",
+    "@types/glob": "^5.0.35",
+    "@types/prop-types": "^15.5.5",
+    "@types/react": "^16.4.11",
+    "@types/react-dom": "^16.0.7",
+    "@types/rimraf": "^2.0.2",
+    "@types/shelljs": "^0.8.0",
+    "antd": "^3.8.2",
+    "awesome-typescript-loader": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "csstype": "^2.5.6",
+    "less": "^2.7.3",
+    "less-loader": "^4.1.0",
+    "prop-types": "^15.6.2",
+    "shelljs": "^0.8.2",
+    "source-map-loader": "^0.2.3",
+    "style-loader": "^0.22.1",
+    "ts-import-plugin": "^1.5.4",
+    "ts-loader": "^4.4.2",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.16.5",
+    "webpack-dev-server": "^3.1.5"
+  }
+}
