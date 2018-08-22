@@ -9,22 +9,58 @@ import * as React from 'react';
 // import '../../../node_modules/antd/lib/icon/style/index';
 /*以上的注释是手动按需加载，比较繁琐，利用ts-import-plugin实现按需加载antd组件和样式 */
 
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, Input, Alert } from "antd";
 
 import './style/layout.less'
 
 const { Header, Content, Footer, Sider } = Layout;
+const Search = Input.Search;
+const baiduUrl = "https://www.baidu.com/s?wd=";
 
-interface Props{
-
+interface State{
+    url: string,
+    msg: string
 }
 
-export default class MyLayout extends React.Component<Props,object>{
+export default class MyLayout extends React.Component<object,State>{
     constructor(props: any){
         super(props)
+
+        this.state = {
+            url: '',
+            msg: ''
+        }
+    }
+
+    //判断输入是否网址
+    isURL(str: string): boolean{
+        return !!str.match(/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g);
+      }
+
+    // 处理用户输入
+    search(val: string){
+        if(val !== ''){
+            if(this.isURL(val)){
+                // 是合法网址
+                this.setState({
+                    url: val,
+                    msg: '请按F12打开控制台后，用箭头工具去选中区域'
+                })
+            }else{
+                // 不是合法网址，调用百度搜索
+                this.setState({
+                    url: baiduUrl + val,
+                    msg: '请按F12打开控制台后，用箭头工具去选中区域'
+                })
+            }
+        }
     }
 
     render(){
+
+        // 业务逻辑
+        // TODO
+
         return (
             <Layout>
             <Sider
@@ -54,16 +90,17 @@ export default class MyLayout extends React.Component<Props,object>{
             </Menu>
             </Sider>
             <Layout>
-            <Header style={{ background: '#fff', padding: 0 }} />
-            <Content style={{ margin: '24px 16px 0' }}>
-                <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                content
-                </div>
+            <Header style={{ background: '#fff', padding: 0 }}>
+            <Alert message={this.state.msg} type="info" ></Alert>
+            </Header>
+            <Content style={{ margin: '24px 46px 0', height: '780px' }}>
+                <Search placeholder="请输入网址或搜索词（默认百度搜索）"
+                 onSearch = {value => this.search(value)}
+                 size = "large"
+                 enterButton
+                 ></Search>
+                <iframe src={ this.state.url } frameBorder="1" style = {{ margin: '24px 46px 0',width: '100%' , height: '680px' }} ></iframe>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
-                Ant Design ©2018 Created by Ant UED
-                <img src="https://ps.ssl.qhimg.com/sdmt/127_135_100/t01f407044047d98e89.jpg" alt="" className="src"/>
-            </Footer>
             </Layout>
         </Layout>
         );
